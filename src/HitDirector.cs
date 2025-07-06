@@ -1,9 +1,10 @@
 ﻿using System.Linq;
-
+using Il2CppPuppetMasta;
 using UnityEngine;
 
 using Il2CppSLZ.Marrow;
 using Il2CppSLZ.Marrow.AI;
+using Il2CppSLZ.Marrow.Combat;
 using Il2CppSLZ.Marrow.PuppetMasta;
 using Il2CppSLZ.Marrow.Interaction;
 
@@ -24,7 +25,16 @@ namespace NEP.Hitmarkers
 
         public static bool EvaluateHit(HitData data)
         {
-            TriggerRefProxy proxy = data.projectile._proxy;
+            TriggerRefProxy proxy = null;
+
+            if (data.projectile)
+            {
+                proxy = data.projectile._proxy;
+            }
+            else if (data.attack.proxy)
+            {
+                proxy = data.attack.proxy;
+            }
             
             // TODO:
             // Check if the player is the first ever rig to get made,
@@ -112,6 +122,30 @@ namespace NEP.Hitmarkers
 
                 HitDirector.OnHit?.Invoke(hitData);
             }));
+        }
+    }
+    
+    [HarmonyLib.HarmonyPatch(typeof(SubBehaviourHealth), nameof(SubBehaviourHealth.TakeDamage))]
+    public static class NPCDamagePatch
+    {
+        public static void Postfix(SubBehaviourHealth __instance, int m, Attack attack)
+        {
+            if (attack.proxy == null || attack.proxy.root == null)
+            {
+                return;
+            }
+            
+            BehaviourPowerLegs npcRig = __instance.behaviour.TryCast<BehaviourPowerLegs>();
+            
+            var hitData = new HitData()
+            {
+                attack = attack,
+                collider = attack.collider,
+                worldHit = attack.origin,
+                brain = npcRig.sensors.selfTrp.aiManager
+            };
+            
+            HitDirector.OnHit?.Invoke(hitData);
         }
     }
 

@@ -61,15 +61,19 @@ namespace NEP.Hitmarkers
             hitmarkersPage.CreateFloat(
                 "Hitmarker SFX", 
                 Color.white,
-                10f,
-                Options.HitmarkerSFX, 0f, 100f, 
+                Options.HitmarkerSFX,
+                10f, 
+                0f, 
+                100f, 
                 (value) => Options.SetHitmarkerVolume(value));
 
             hitmarkersPage.CreateFloat(
                 "Hitmarker Pitch", 
                 Color.white, 
+                Options.HitmarkerPitch, 
                 0.25f, 
-                Options.HitmarkerPitch, 0f, 2f, 
+                0f, 
+                2f, 
                 (value) => Options.SetHitmarkerPitch(value));
 
             var favMarkerPage = hitmarkersPage.CreatePage(
