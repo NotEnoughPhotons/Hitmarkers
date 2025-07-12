@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Il2CppInterop.Runtime.Attributes;
+using UnityEngine;
 
 using NEP.Hitmarkers.Data;
 
@@ -9,11 +10,13 @@ namespace NEP.Hitmarkers
     {
         public Hitmarker(System.IntPtr ptr) : base(ptr) { }
 
+        [HideFromIl2Cpp]
         public AudioClip[] HitAudio
         {
             get => _hitAudio;
         }
 
+        [HideFromIl2Cpp]
         public AudioClip[] FinisherAudio
         {
             get => _finisherAudio;

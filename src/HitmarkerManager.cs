@@ -3,7 +3,7 @@
 using UnityEngine;
 
 using BoneLib;
-
+using Il2CppInterop.Runtime.Attributes;
 using NEP.Hitmarkers.Data;
 
 namespace NEP.Hitmarkers
@@ -15,8 +15,11 @@ namespace NEP.Hitmarkers
 
         public static HitmarkerManager Instance;
 
+        [HideFromIl2Cpp]
         public MarkerSkin Skin { get; private set; }
+        [HideFromIl2Cpp]
         public MarkerSkin FavoriteSkin => DataManager.GetMarkerSkin(Options.FavoriteSkin);
+        [HideFromIl2Cpp]
         public MarkerSkin DefaultSkin => DataManager.GetMarkerSkin("Default");
 
         private List<Hitmarker> _hitmarkers;
