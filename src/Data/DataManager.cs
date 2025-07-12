@@ -162,7 +162,9 @@ namespace NEP.Hitmarkers.Data
 
             if (!File.Exists(assetPath))
             {
+                #if DEBUG
                 Melon<Main>.Logger.Warning($"{textureName} does not exist in {skinPath}!");
+                #endif
                 return null;
             }
 
@@ -170,7 +172,9 @@ namespace NEP.Hitmarkers.Data
 
             if (!ImageConversion.LoadImage(texture, data))
             {
+                #if DEBUG
                 Melon<Main>.Logger.Warning($"{textureName} failed to load! The data is likely corrupted or invalid.");
+                #endif
                 return null;
             }
 
