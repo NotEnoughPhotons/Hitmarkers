@@ -22,13 +22,13 @@ namespace NEP.Hitmarkers
     
     public class Main : MelonMod
     {
-        public static MelonLogger Logger = new MelonLogger();
+        public static MelonLogger.Instance Logger;
 
         internal const string EmbeddedModule = "NEP.Hitmarkers.Resources.HitmarkersFusionModule.dll";
 
         public override void OnInitializeMelon()
         {
-            Logger = new MelonLogger();
+            Logger = new MelonLogger.Instance("Hitmarkers");
             // var moduleData = Data.DataManager.Internal_LoadFromAssembly(System.Reflection.Assembly.GetExecutingAssembly(), EmbeddedModule);
             // System.Reflection.Assembly.Load(moduleData);
 
