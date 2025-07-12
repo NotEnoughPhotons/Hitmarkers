@@ -135,7 +135,7 @@ namespace NEP.Hitmarkers
                 return;
             }
             
-            BehaviourPowerLegs npcRig = __instance.behaviour.TryCast<BehaviourPowerLegs>();
+            BehaviourGrabbableBaseNav npcRig = __instance.behaviour.TryCast<BehaviourGrabbableBaseNav>();
             
             var hitData = new HitData()
             {
