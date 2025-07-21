@@ -35,10 +35,6 @@ namespace NEP.Hitmarkers
             {
                 proxy = data.attack.proxy;
             }
-            
-            // TODO:
-            // Check if the player is the first ever rig to get made,
-            // since in patch 4+ the rig manager is a pooled object
 
             // Makes it so any NPC with a gun can't spawn hitmarkers
             if (proxy.triggerType != TriggerRefProxy.TriggerType.Player)
@@ -136,19 +132,26 @@ namespace NEP.Hitmarkers
             }
             
             BehaviourGrabbableBaseNav npcRig = __instance.behaviour.TryCast<BehaviourGrabbableBaseNav>();
-            
-            var hitData = new HitData()
+
+            if (npcRig != null)
             {
-                attack = attack,
-                collider = attack.collider,
-                worldHit = attack.origin,
-                brain = npcRig.sensors.selfTrp.aiManager
-            };
+                var hitData = new HitData()
+                {
+                    attack = attack,
+                    collider = attack.collider,
+                    worldHit = attack.origin,
+                    brain = npcRig.sensors.selfTrp.aiManager
+                };
             
-            HitDirector.OnHit?.Invoke(hitData);
+                HitDirector.OnHit?.Invoke(hitData);
+            }
+            else
+            {
+                Main.Logger.Warning("Hit NPC rig was null!");
+            }
         }
     }
-
+    
     [HarmonyLib.HarmonyPatch(typeof(PuppetMaster))]
     [HarmonyLib.HarmonyPatch(nameof(PuppetMaster.Awake))]
     public static class PuppetMasterPatch

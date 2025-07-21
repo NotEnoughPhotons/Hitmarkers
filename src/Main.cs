@@ -29,9 +29,15 @@ namespace NEP.Hitmarkers
         public override void OnInitializeMelon()
         {
             Logger = new MelonLogger.Instance("Hitmarkers");
-            // var moduleData = Data.DataManager.Internal_LoadFromAssembly(System.Reflection.Assembly.GetExecutingAssembly(), EmbeddedModule);
-            // System.Reflection.Assembly.Load(moduleData);
 
+            if (FindMelon("LabFusion", "Lakatrazz") != null)
+            {
+                var moduleData = BoneLib.HelperMethods.GetResourceBytes(System.Reflection.Assembly.GetExecutingAssembly(), EmbeddedModule);
+                var loadedModule = System.Reflection.Assembly.Load(moduleData);
+
+                loadedModule.GetType("NEP.Hitmarkers.ModuleLoader").GetMethod("LoadModule").Invoke(null, null);
+            }
+            
             DataManager.Initialize();
             Options.Initialize();
 
