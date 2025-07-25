@@ -8,37 +8,25 @@ using NEP.Hitmarkers.Data;
 
 namespace NEP.Hitmarkers
 {
-    [MelonLoader.RegisterTypeInIl2Cpp]
-    public class HitmarkerManager : MonoBehaviour
+    public static class HitmarkerManager
     {
-        public HitmarkerManager(System.IntPtr ptr) : base(ptr) { }
-
-        public static HitmarkerManager Instance;
-
         [HideFromIl2Cpp]
-        public MarkerSkin Skin { get; private set; }
+        public static MarkerSkin Skin { get; private set; }
         [HideFromIl2Cpp]
-        public MarkerSkin FavoriteSkin => DataManager.GetMarkerSkin(Options.FavoriteSkin);
+        public static MarkerSkin FavoriteSkin => DataManager.GetMarkerSkin(Options.FavoriteSkin);
         [HideFromIl2Cpp]
-        public MarkerSkin DefaultSkin => DataManager.GetMarkerSkin("Default");
+        public static MarkerSkin DefaultSkin => DataManager.GetMarkerSkin("Default");
 
-        private List<Hitmarker> _hitmarkers;
-        private List<Hitmarker> _finishers;
+        private static List<Hitmarker> _hitmarkers;
+        private static List<Hitmarker> _finishers;
 
-        private int _markerCount = 64;
+        private static int _markerCount = 64;
 
-        private Transform _poolHitmarker;
-        private Transform _poolFinisher;
+        private static Transform _poolHitmarker;
+        private static Transform _poolFinisher;
 
-        private void Awake()
+        internal static void Initialize()
         {
-            if(Instance == null)
-            {
-                Instance = this;
-            }
-
-            DontDestroyOnLoad(Instance);
-
             BuildPools();
 
             _hitmarkers = new List<Hitmarker>();
@@ -51,16 +39,13 @@ namespace NEP.Hitmarkers
             }
         }
 
-        private void BuildPools()
+        private static void BuildPools()
         {
             _poolHitmarker = new GameObject("Hitmarker Pool").transform;
             _poolFinisher = new GameObject("Finisher Pool").transform;
-
-            _poolHitmarker.transform.SetParent(transform);
-            _poolFinisher.transform.SetParent(transform);
         }
 
-        private Hitmarker BuildHitmarker(bool isFinisher)
+        private static Hitmarker BuildHitmarker(bool isFinisher)
         {
             string name = !isFinisher ? "Hitmarker" : "Finisher";
             GameObject marker = GameObject.Instantiate(Data.DataManager.GetGameObject("Hitmarker"));
@@ -76,7 +61,7 @@ namespace NEP.Hitmarkers
             return marker.AddComponent<Hitmarker>();
         }
 
-        private Hitmarker GetInactiveMarker(bool finisher)
+        private static Hitmarker GetInactiveMarker(bool finisher)
         {
             var list = !finisher ? _hitmarkers : _finishers;
 
@@ -91,12 +76,12 @@ namespace NEP.Hitmarkers
             return null;
         }
 
-        public void SetMarkerSkin(MarkerSkin skin)
+        public static void SetMarkerSkin(MarkerSkin skin)
         {
             Skin = skin;
         }
 
-        public void SpawnMarker(Vector3 position, bool finisher = false)
+        public static void SpawnMarker(Vector3 position, bool finisher = false)
         {
             if (!Data.Options.EnableHitmarkers)
             {

@@ -44,11 +44,15 @@ namespace NEP.Hitmarkers
             SetupBoneMenu();
 
             MarrowGame.RegisterOnReadyAction(new System.Action(() => OnMarrowGameStart()));
+
+            BoneLib.Hooking.OnLevelLoaded += (data) =>
+            {
+                HitmarkerManager.Initialize();
+            };
         }
 
         public void OnMarrowGameStart()
         {
-            new GameObject("Hitmarker Manager").AddComponent<HitmarkerManager>();
             HitDirector.Initialize();
         }
 
@@ -92,7 +96,7 @@ namespace NEP.Hitmarkers
                 int index = i;
                 customMarkersPage.CreateFunction(DataManager.Skins[index].SkinName, Color.white, () =>
                 {
-                    HitmarkerManager.Instance.SetMarkerSkin(DataManager.Skins[index]);
+                    HitmarkerManager.SetMarkerSkin(DataManager.Skins[index]);
                 });
             }
 

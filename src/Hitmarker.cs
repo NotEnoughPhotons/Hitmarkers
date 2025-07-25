@@ -124,9 +124,9 @@ namespace NEP.Hitmarkers
 
         private void SetAudio()
         {
-            MarkerSkin skin = HitmarkerManager.Instance.Skin;
-            MarkerSkin favoriteSkin = HitmarkerManager.Instance.FavoriteSkin;
-            MarkerSkin defaultSkin = HitmarkerManager.Instance.DefaultSkin;
+            MarkerSkin skin = HitmarkerManager.Skin;
+            MarkerSkin favoriteSkin = HitmarkerManager.FavoriteSkin;
+            MarkerSkin defaultSkin = HitmarkerManager.DefaultSkin;
 
             if (skin == null)
             {
@@ -152,9 +152,9 @@ namespace NEP.Hitmarkers
 
         private void SetTextures()
         {
-            MarkerSkin skin = HitmarkerManager.Instance.Skin;
-            MarkerSkin favoriteSkin = HitmarkerManager.Instance.FavoriteSkin;
-            MarkerSkin defaultSkin = HitmarkerManager.Instance.DefaultSkin;
+            MarkerSkin skin = HitmarkerManager.Skin;
+            MarkerSkin favoriteSkin = HitmarkerManager.FavoriteSkin;
+            MarkerSkin defaultSkin = HitmarkerManager.DefaultSkin;
 
             if (skin == null)
             {

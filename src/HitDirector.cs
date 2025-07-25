@@ -75,7 +75,7 @@ namespace NEP.Hitmarkers
         {
             if (EvaluateHit(data))
             {
-                HitmarkerManager.Instance.SpawnMarker(data.worldHit);
+                HitmarkerManager.SpawnMarker(data.worldHit);
             }
         }
 
@@ -85,7 +85,7 @@ namespace NEP.Hitmarkers
             if (bbn == null) return;
 
             OnKill?.Invoke(puppet);
-            HitmarkerManager.Instance.SpawnMarker(bbn.eyeTran.position, true);
+            HitmarkerManager.SpawnMarker(bbn.eyeTran.position, true);
         }
     }
 
