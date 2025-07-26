@@ -112,6 +112,11 @@ namespace NEP.Hitmarkers
 
         private void PlayAudio()
         {
+            if (!Options.EnableHitmarkers)
+            {
+                return;
+            }
+            
             var selectedList = !_isFinisher ? _hitAudio : _finisherAudio;
 
             if (selectedList == null)
