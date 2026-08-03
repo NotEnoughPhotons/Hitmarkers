@@ -52,6 +52,7 @@ bld/
 [Ll]og/
 [Ll]ogs/
 [Pp]roperties/
+[Ss]taging/*.zip
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
