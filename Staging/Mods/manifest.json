@@ -1,0 +1,10 @@
+{
+    "name": "Hitmarkers",
+    "version_number": "2.10.2",
+    "website_url": "https://notenoughphotons.dev",
+    "description": "Redone for BONELAB, see all hits you make on your foes. Now with (WORKING) Quest support!",
+    "dependencies": [
+	"bonelib-BoneLib-3.2.1", 
+	"TrevTV-AudioImportLib-1.3.0"
+	]
+}
